@@ -1,0 +1,11 @@
+.product-title {
+    color: var(--title-color);
+}
+
+.product-price::after {
+    content: " BYN";
+}
+
+.product-amount::after {
+    content: " шт.";
+}

@@ -1,0 +1,34 @@
+:root {
+    --black: #252525;
+    --red: #EB6254;
+    --green: #3c7a6e;
+
+    --main-color: var(--green);
+    --header-color: var(--black);
+    --title-color: var(--red);
+
+}
+
+body {
+    font-family: sans-serif;
+    color: var(--main-color);
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 50px auto;
+}
+
+table th {
+    height: 100px;
+    color: var(--header-color);
+    text-transform: uppercase;
+}
+
+table img {
+    width: 130px;
+}
