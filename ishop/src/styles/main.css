@@ -16,19 +16,3 @@ body {
     text-align: center;
     margin: 0;
 }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 50px auto;
-}
-
-table th {
-    height: 100px;
-    color: var(--header-color);
-    text-transform: uppercase;
-}
-
-table img {
-    width: 130px;
-}

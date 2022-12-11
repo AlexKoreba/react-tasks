@@ -6,7 +6,7 @@ import product_4 from "./../img/screwdriver.jpg";
 export const products = [
     {
         id: 1,
-        title: "Дрель BOSCH",
+        title: "Дрель GBM 6 RE",
         price: 245,
         img: product_1,
         amount: 8
@@ -14,7 +14,7 @@ export const products = [
 
     {
         id: 2,
-        title: "Рубанок электрический BOSCH",
+        title: "Рубанок электрический GНО 26-82D",
         price: 739,
         img: product_2,
         amount: 12
@@ -22,7 +22,7 @@ export const products = [
 
     {
         id: 3,
-        title: "Пила циркулярная BOSCH",
+        title: "Пила циркулярная GKS 600",
         price: 489,
         img: product_3,
         amount: 10
@@ -30,7 +30,7 @@ export const products = [
 
     {
         id: 4,
-        title: "Дрель-шуруповерт аккумуляторная BOSCH",
+        title: "Дрель-шуруповерт аккумуляторная GSR 18V-60 C",
         price: 608,
         img: product_4,
         amount: 2

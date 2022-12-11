@@ -1,6 +1,7 @@
 import "./Product.css";
 
 const Product = (props) => {
+
     return ( 
         <tr className="product">
             <td>
