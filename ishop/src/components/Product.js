@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import "./Product.css";
 
 const Product = (props) => {
@@ -17,7 +19,15 @@ const Product = (props) => {
                 <span className="product-amount">{props.amount}</span>
             </td>
         </tr>
-     );
+    );
+}
+
+Product.propTypes = {
+    id: PropTypes.number,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    img: PropTypes.string.isRequired,
+    amount: PropTypes.number.isRequired
 }
  
 export default Product;

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import "./Products.css";
 
 import Product from "./Product";
@@ -22,7 +24,11 @@ const Products = (props) => {
 
             </table>
         </div>
-     );
-}
+    );
+};
+
+Products.propTypes = {
+    shopName: PropTypes.string.isRequired
+};
  
 export default Products;
