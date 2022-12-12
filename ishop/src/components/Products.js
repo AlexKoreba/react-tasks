@@ -11,16 +11,21 @@ const Products = (props) => {
             <h1>Товары магазина &laquo;{props.shopName}&raquo;</h1>
 
             <table border={1}>
-                <tr>
-                    <th>Изображение</th>
-                    <th>Наименование</th>
-                    <th>Цена</th>
-                    <th>Количество</th>
-                </tr>
 
+                <thead>
+                    <tr>
+                        <th>Изображение</th>
+                        <th>Наименование</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
                     {products.map( product => {
                         return <Product key={product.id} img={product.img} title={product.title} price={product.price} amount={product.amount} />
                     })}
+                </tbody>
 
             </table>
         </div>
