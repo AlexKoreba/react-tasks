@@ -1,0 +1,20 @@
+:root {
+    --black: #252525;
+    --red: #EB6254;
+    --green: #3c7a6e;
+    --gray: lightgray;
+
+    --main-color: var(--green);
+    --header-color: var(--black);
+    --title-color: var(--red);
+    --active-color: var(--gray);
+
+}
+
+body {
+    font-family: sans-serif;
+    color: var(--main-color);
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
