@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from 'prop-types';
 
 import "./Shop.css";
@@ -7,11 +6,6 @@ import Product from "./Product";
 import { products } from "./../helpers/productsList";
 
 const Shop = (props) => {
-
-    const [selectedTr, setSelectedTr] = useState(null);
-
-    const trChanged = trTitle => setSelectedTr( currentValue => currentValue = trTitle );
-
     return ( 
         <div className="container">
             <h1>Товары магазина &laquo;{props.shopName}&raquo;</h1>
@@ -23,7 +17,6 @@ const Shop = (props) => {
                         <th>Изображение</th>
                         <th>Наименование</th>
                         <th>Цена</th>
-                        
                         <th>Количество</th>
                         <th>Управление</th>
                     </tr>
@@ -31,12 +24,7 @@ const Shop = (props) => {
                 
                 <tbody>
                     {products.map( product => {
-                        return <Product key={product.id} 
-                            img={product.img} title={product.title} 
-                            price={product.price} 
-                            amount={product.amount} 
-                            cbTrChanged={trChanged}
-                            isSelected={selectedTr === product.title} />
+                        return <Product key={product.id} img={product.img} title={product.title} price={product.price} amount={product.amount} />
                     })}
                 </tbody>
 

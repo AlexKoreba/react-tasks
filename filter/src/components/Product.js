@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import PropTypes from 'prop-types';
 
 import "./Product.css";
@@ -8,10 +8,26 @@ const Product = (props) => {
     const tr = useRef(null);
     const btn = useRef(null);
     
-    // Выделение строки:
-    const selectionTr = () => props.cbTrChanged(props.title);
+    // Выделение строки
+    const [activeTr, setActiveTr] = useState(false);
 
-    // Удаление строки:
+    useEffect( () => {
+
+        if (activeTr) {
+            tr.current.classList.add('tr-active');
+            tr.current.setAttribute('data-active', '');
+        } else {
+            tr.current.classList.remove('tr-active');
+            tr.current.removeAttribute('data-active');
+        }
+
+    }, [activeTr]);
+
+    const toggleActiveTr = () => {
+        setActiveTr( currentValue => currentValue ? false : true);
+    };
+
+    // Удаление строки
     const removeTr = () => {   
         const question = window.confirm('Удалить товар?');
 
@@ -22,8 +38,8 @@ const Product = (props) => {
 
 
     return ( 
-        <tr className={ props.isSelected ? "product tr-active" : "product"} onClick={selectionTr} ref={tr}>
-            <td> 
+        <tr className="product" onClick={toggleActiveTr} ref={tr}>
+            <td>
                 <img src={props.img} alt={props.title} />
             </td>
             <td>
@@ -47,9 +63,7 @@ Product.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     img: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
-    cbTrChanged: PropTypes.func.isRequired,
-    isSelected: PropTypes.bool.isRequired
+    amount: PropTypes.number.isRequired
 }
  
 export default Product;
