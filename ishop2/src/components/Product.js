@@ -6,12 +6,16 @@ import "./Product.css";
 const Product = (props) => {
 
     const tr = useRef(null);
-    const btn = useRef(null);
     
-    // Выделение строки:
-    const selectionTr = () => props.cbTrChanged(props.title);
+    // Функция передачи информации о выбранной строке родителю:
+    const selectionTr = (event) => {
 
-    // Удаление строки:
+        if (event.target.className !== "product-delete" ) {
+            props.cbTrChanged(props.title);
+        } 
+    }
+
+    // Функция удаления строки:
     const removeTr = () => {   
         const question = window.confirm('Удалить товар?');
 
@@ -36,7 +40,7 @@ const Product = (props) => {
                 <span className="product-amount">{props.amount}</span>
             </td>
             <td>
-                <button className="product-delete" onClick={removeTr} ref={btn}>delete</button>
+                <button className="product-delete" onClick={removeTr}>delete</button>
             </td>
         </tr>
     );
