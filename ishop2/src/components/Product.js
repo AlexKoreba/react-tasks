@@ -1,32 +1,29 @@
-import { useRef } from "react";
 import PropTypes from 'prop-types';
 
 import "./Product.css";
 
 const Product = (props) => {
-
-    const tr = useRef(null);
     
     // Функция передачи информации о выбранной строке родителю:
     const selectionTr = (event) => {
 
         if (event.target.className !== "product-delete" ) {
-            props.cbTrChanged(props.title);
+            props.cbTrChanged(props.id);
         } 
     }
 
-    // Функция удаления строки:
+    // Функция передачи информации о удаляемой строке родителю:
     const removeTr = () => {   
         const question = window.confirm('Удалить товар?');
 
         if (question) {
-            tr.current.remove();
+            props.cbProductsListChanged(props.id);
         }
     }; 
 
 
     return ( 
-        <tr className={ props.isSelected ? "product tr-active" : "product"} onClick={selectionTr} ref={tr}>
+        <tr className={ props.isSelected ? "product tr-active" : "product"} onClick={selectionTr} data-id={props.id}>
             <td> 
                 <img src={props.img} alt={props.title} />
             </td>
@@ -47,13 +44,14 @@ const Product = (props) => {
 }
 
 Product.propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     img: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
     cbTrChanged: PropTypes.func.isRequired,
-    isSelected: PropTypes.bool.isRequired
+    isSelected: PropTypes.bool.isRequired,
+    cbProductsListChanged: PropTypes.func.isRequired
 }
  
 export default Product;

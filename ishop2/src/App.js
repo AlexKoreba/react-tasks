@@ -1,6 +1,7 @@
+import Shop from "./components/Shop";
+
 import "./styles/main.css";
 
-import Shop from "./components/Shop";
 
 function App() {
   return (
