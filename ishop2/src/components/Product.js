@@ -5,18 +5,13 @@ import "./Product.css";
 const Product = (props) => {
     
     // Функция передачи информации о выбранной строке родителю:
-    const selectionTr = (event) => {
-
-        if (event.target.className !== "product-delete" ) {
-            props.cbTrChanged(props.id);
-        } 
-    }
+    const selectionTr = () => props.cbTrChanged(props.id);
 
     // Функция передачи информации о удаляемой строке родителю:
-    const removeTr = () => {   
-        const question = window.confirm('Удалить товар?');
+    const removeTr = (event) => {   
+        event.stopPropagation();
 
-        if (question) {
+        if ( window.confirm('Удалить товар?') ) {
             props.cbProductsListChanged(props.id);
         }
     }; 
