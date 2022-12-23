@@ -10,14 +10,8 @@ const Shop = (props) => {
     const [selectedTr, setSelectedTr] = useState(null);
     const [productsList, setProductsList] = useState( [...products] );
 
-    const trChanged = trID => setSelectedTr( currentValue => currentValue = trID );
-
-    const productsListChanged = trID => setProductsList( currentValue => {
-        const newArr = [...currentValue];
-        const indexInArr = newArr.findIndex(( product => product.id === trID ));
-        newArr.splice(indexInArr, 1);
-        return currentValue = newArr;
-    });
+    const trChanged = trID => setSelectedTr(trID);
+    const productsListChanged = trID => setProductsList( currentValue => [...currentValue].filter( product => product.id !== trID ));
 
 
     return ( 
