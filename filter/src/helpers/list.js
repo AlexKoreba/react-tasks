@@ -1,5 +1,5 @@
 export const list = [
-    'california', 
+    'california',  
     'everything', 
     'aboveboard', 
     'washington', 
@@ -8,5 +8,7 @@ export const list = [
     'characters', 
     'literature', 
     'contraband', 
-    'appreciate'
+    'appreciate',
+    'califa',
+    'call'
 ];
