@@ -11,8 +11,15 @@ const Shop = (props) => {
     const [selectedTr, setSelectedTr] = useState(null);
     const [productsList, setProductsList] = useState( [...products] );
 
-    const trChanged = trID => setSelectedTr(trID);
-    const productsListChanged = trID => setProductsList( currentValue => [...currentValue].filter( product => product.id !== trID ));
+    const trChanged = trID => setSelectedTr( productsList.find( product => product.id === trID ));
+
+    const productsListChanged = trID => {
+        setProductsList( currentValue => [...currentValue].filter( product => product.id !== trID ));
+
+        if ( trID === selectedTr.id ) {
+            setSelectedTr(null);
+        } 
+    };
 
 
     return ( 
@@ -42,13 +49,19 @@ const Shop = (props) => {
                             price={product.price} 
                             amount={product.amount} 
                             cbTrChanged={trChanged}
-                            isSelected={selectedTr === product.id}
+                            isSelected={product === selectedTr}
                             cbProductsListChanged={productsListChanged} 
                             />
                     })}
                 </tbody>
 
             </table>
+
+            <div className={selectedTr ? "product-card" : "none"}>
+                <h2 className="product-title">{selectedTr?.title}</h2>
+                <p className="product-price">Price: {selectedTr?.price.toFixed(2)}</p>
+                <p className="product-amount">Amount: {selectedTr?.amount}</p>
+            </div>
         </div>
     );
 };

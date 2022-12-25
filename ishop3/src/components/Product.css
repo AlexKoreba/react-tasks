@@ -10,11 +10,15 @@
     content: " шт."; 
 }
 
-.product-delete {
+.product-btn {
     width: 80px;
     height: 40px;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+.product-btn:not(.product-btn:first-child) {
+    margin-left: 15px;
 }
 
 .tr-active {

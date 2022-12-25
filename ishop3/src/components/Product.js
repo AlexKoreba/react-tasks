@@ -8,7 +8,7 @@ const Product = (props) => {
     const selectionTr = () => props.cbTrChanged(props.id);
 
     // Функция передачи информации о удаляемой строке родителю:
-    const removeTr = (event) => {   
+    const removeTr = event => {   
         event.stopPropagation();
 
         if ( window.confirm('Удалить товар?') ) {
@@ -32,7 +32,8 @@ const Product = (props) => {
                 <span className="product-amount">{props.amount}</span>
             </td>
             <td>
-                <button className="product-delete" onClick={removeTr}>delete</button>
+                <button className="product-btn">edit</button>
+                <button className="product-btn" onClick={removeTr}>delete</button>
             </td>
         </tr>
     );
