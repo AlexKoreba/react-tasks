@@ -3,31 +3,34 @@ import { useState, useEffect } from "react";
 const Filter = (props) => {
 
     const [wordsList, setWordsList] = useState( [...props.arr] );
-    const [enteredWord, setEnteredWord] = useState("");
+    const [enteredText, setEnteredText] = useState("");
     const [sortMode, setSortMode] = useState(false);
 
     useEffect( () => {
 
-        let newArr = !enteredWord ? [...props.arr] : [...props.arr].filter( word => word.includes(enteredWord) );
+        let newArr = !enteredText ? [...props.arr] : [...props.arr].filter( text => text.includes(enteredText) );
 
-        sortMode ? setWordsList(newArr.sort()) : setWordsList(newArr);
+        if (sortMode) {
+            newArr.sort(); 
+        }
+        setWordsList(newArr);
 
-    }, [sortMode, enteredWord, props.arr]);
+    }, [sortMode, enteredText, props.arr]);
 
 
     const toggleSortMode = () => setSortMode( currentValue => currentValue ? false : true);
-    const textChanged = event => setEnteredWord(event.target.value);
+    const textChanged = event => setEnteredText(event.target.value);
 
     const reset = () => {
         setWordsList( [...props.arr] );
-        setEnteredWord("");
+        setEnteredText("");
         setSortMode(false);
     }
 
     return ( 
         <form>
             <input className="checkbox" type="checkbox" onChange={toggleSortMode} checked={sortMode}></input>
-            <input className="text" type="text" onChange={textChanged} value={enteredWord }></input>
+            <input className="text" type="text" onChange={textChanged} value={enteredText }></input>
             <input className="reset" type="button" value="reset" onClick={reset}></input>
 
             <div className="content">
