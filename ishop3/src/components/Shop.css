@@ -1,7 +1,7 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 40px auto;
+    margin: 40px auto 10px;
 }
 
 table th {
@@ -14,15 +14,57 @@ table img {
     width: 130px;
 }
 
+.wrapper {
+    text-align: left;
+    padding: 0 20px;
+}
+
+.btn {
+    width: 120px;
+    height: 40px;
+    color: #FFFFFF;
+    background-color: var(--green);
+    border: none;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2f5f55;
+}
+
 .product-card {
     max-width: 600px;
     text-align: left;
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-
     padding: 5px 20px;
-    margin-left: 20px;
 }
 
 .none {
     display: none;
+}
+
+.product-card > div {
+    display: flex;
+    column-gap: 10px;
+    margin-bottom: 10px;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    row-gap: 9px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    width: 100%;
+}
+
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
 }

@@ -14,11 +14,17 @@ const Product = (props) => {
         if ( window.confirm('Удалить товар?') ) {
             props.cbProductsListChanged(props.id);
         }
-    }; 
+    };
+    
+    // Функция передачи информации о строке, выбранной для редактирования:
+    const editTr = event => {
+        event.stopPropagation();
+        props.cbProductEdit(props.id);
+    }
 
 
     return ( 
-        <tr className={ props.isSelected ? "product tr-active" : "product"} onClick={selectionTr} data-id={props.id}>
+        <tr className={ props.isSelected ? "product tr-active" : "product"} onClick={props.notEditeInProgress ? selectionTr : null}>
             <td> 
                 <img src={`img/${props.img}`} alt={props.title} />
             </td>
@@ -32,8 +38,17 @@ const Product = (props) => {
                 <span className="product-amount">{props.amount}</span>
             </td>
             <td>
-                <button className="product-btn">edit</button>
-                <button className="product-btn" onClick={removeTr}>delete</button>
+                {
+                    props.notEditeInProgress 
+                    ?   <>
+                            <button className="product-btn" onClick={editTr}>edit</button>
+                            <button className="product-btn" onClick={removeTr}>delete</button>
+                        </> 
+                    :   <>
+                            <button className="product-btn" onClick={editTr} disabled>edit</button>
+                            <button className="product-btn" onClick={removeTr} disabled>delete</button>
+                        </>              
+                }
             </td>
         </tr>
     );
@@ -47,7 +62,9 @@ Product.propTypes = {
     amount: PropTypes.number.isRequired,
     cbTrChanged: PropTypes.func.isRequired,
     isSelected: PropTypes.bool.isRequired,
-    cbProductsListChanged: PropTypes.func.isRequired
+    cbProductsListChanged: PropTypes.func.isRequired,
+    cbProductEdit: PropTypes.func.isRequired,
+    notEditeInProgress: PropTypes.bool.isRequired
 }
  
 export default Product;
