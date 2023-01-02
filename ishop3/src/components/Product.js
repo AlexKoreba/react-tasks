@@ -24,7 +24,7 @@ const Product = (props) => {
 
 
     return ( 
-        <tr className={ props.isSelected ? "product tr-active" : "product"} onClick={props.notEditeInProgress ? selectionTr : null}>
+        <tr className={ props.isSelected ? "product tr-active" : "product"} onClick={props.productNoEditingNow ? selectionTr : undefined}>
             <td> 
                 <img src={`img/${props.img}`} alt={props.title} />
             </td>
@@ -39,7 +39,7 @@ const Product = (props) => {
             </td>
             <td>
                 {
-                    props.notEditeInProgress 
+                    props.productNoEditingNow 
                     ?   <>
                             <button className="product-btn" onClick={editTr}>edit</button>
                             <button className="product-btn" onClick={removeTr}>delete</button>
@@ -64,7 +64,7 @@ Product.propTypes = {
     isSelected: PropTypes.bool.isRequired,
     cbProductsListChanged: PropTypes.func.isRequired,
     cbProductEdit: PropTypes.func.isRequired,
-    notEditeInProgress: PropTypes.bool.isRequired
+    productNoEditingNow: PropTypes.bool.isRequired
 }
  
 export default Product;
