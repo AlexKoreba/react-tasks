@@ -12,11 +12,10 @@ const Shop = (props) => {
     // Состояния товара: 
     const [selectedTr, setSelectedTr] = useState(null); /* Объект выделенного товара */
     const [productsList, setProductsList] = useState( [...products] ); /* Текущий список товаров */
-
-    // Состояния для карточки товара: 
+    const [noEditingNow, setNoEditingNow] = useState(true); /* Состояние, отображающее НЕ редактируется / НЕ создается ли сейчас товар (приходит от компонента ProductCard) */ 
     const [productCardMode, setProductCardMode] = useState(0); /* Режим отображения карточки товара */
-    const [noEditingNow, setNoEditingNow] = useState(true); /* Состояние, отображающее НЕ редактируется / НЕ создается ли сейчас товар (приходит от компонента ProductCard) */
 
+    
     // Функция поиска и выделения НУЖНОГО товара + переключения режима отображения карточки товара (режим просмотра информации о товаре):
     const trChanged = trID => {
         setSelectedTr( productsList.find( product => product.id === trID ));
@@ -27,7 +26,7 @@ const Shop = (props) => {
     const productsListChanged = trID => {
         setProductsList( currentValue => [...currentValue].filter( product => product.id !== trID ));
 
-        if ( trID === selectedTr.id ) {
+        if ( selectedTr && trID === selectedTr.id ) {
             setSelectedTr(null);
             setProductCardMode(0);
         } 
@@ -131,9 +130,9 @@ const Shop = (props) => {
                 <ProductCard 
                     workmode = {productCardMode}
                     selectedTr = {selectedTr}
-                    lastID = {productsList.length}
+                    lastID = {productsList[productsList.length - 1].id}
                     cbSaveProductChanges = {saveProductChanges}
-                    cbSaveNewProduct = {addNewProduct}
+                    cbAddNewProduct = {addNewProduct}
                     cbCancelProductChanges = {cancelProductChanges}
                     cbProductChangeStatus = {productChangeStatus} 
                 />
