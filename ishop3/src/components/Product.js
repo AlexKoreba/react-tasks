@@ -32,7 +32,7 @@ const Product = (props) => {
                 <span className="product-title">{props.title}</span>
             </td>
             <td>
-                <span className="product-price">{props.price.toFixed(2)}</span>
+                <span className="product-price">{(+props.price).toFixed(2)}</span>
             </td>
             <td>
                 <span className="product-amount">{props.amount}</span>
@@ -57,7 +57,7 @@ const Product = (props) => {
 Product.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
     cbTrChanged: PropTypes.func.isRequired,

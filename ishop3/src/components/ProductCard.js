@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useRef } from "react";
+import { Fragment, useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 
 import "./ProductCard.css";
@@ -9,81 +9,115 @@ const ProductCard = (props) => {
     const [newTr, setNewTr] = useState( {id: props.lastID + 1, title: "", price: "", img: "", amount: ""} );
     const [noUpdates, setNoUpdates] = useState(true); /* Состояние, отображающее НЕ редактируется ли сейчас товар (false - редактируется, true - нет) */
 
+    /* Валидация */
+    const [validTitle, setValidTitle] = useState(true);
+    const [validPrice, setValidPrice] = useState(true);
+    const [validImg, setValidImg] = useState(true);
+    const [validAmount, setValidAmount] = useState(true);
+    const [validMain, setValidMain] = useState(true);
 
-    const inputID = useRef(null);
-    const inputTitle = useRef(null);
-    const inputPrice = useRef(null);
-    const inputAmount = useRef(null);
-    const inputImg = useRef(null);
+    useEffect( () => {
 
-
-    // Функция записывающая в объект текущие значения из инпутов (для редактирования продукта):
-    const changeInputText = event => {
-
-        if (event.target.value === inputTitle.current.value) {
-            setEditableTr( obj => Object.assign({}, obj, {title: inputTitle.current.value}) );
-        }
-
-        if (event.target.value === inputPrice.current.value) {
-            setEditableTr( obj => Object.assign({}, obj, {price: +inputPrice.current.value}) );
-        }
-
-        if (event.target.value === inputImg.current.value) {
-            setEditableTr( obj => Object.assign({}, obj, {img: inputImg.current.value}) );
-        }
-
-        if (event.target.value === inputAmount.current.value) {
-            setEditableTr( obj => Object.assign({}, obj, {amount: +inputAmount.current.value}) );
+        if (props.workmode === 3) {
+            setValidTitle(false);
+            setValidPrice(false);
+            setValidImg(false);
+            setValidAmount(false);
         }
         
-        // setEditableTr( {
-        //     id: +inputID.current.value,
-        //     title: inputTitle.current.value,
-        //     price: +inputPrice.current.value,
-        //     img: inputImg.current.value,
-        //     amount: +inputAmount.current.value
-        // }); 
-    };
+    }, [props.workmode]);
 
-    // Функция записывающая в объект текущие значения из инпутов (для создания продукта):
-    const changeNewProductInputText = event => {
+    useEffect( () => {
+        setValidMain( validTitle && validPrice && validImg && validAmount );
+    }, [validTitle, validPrice, validImg, validAmount])
 
-        if (event.target.value === inputTitle.current.value) {
-            setNewTr( obj => Object.assign({}, obj, {title: inputTitle.current.value}) );
+
+    // Функции, записывающие в объект текущее значение из соответствующего инпута:
+    const changeInputTitle = event => {
+        if (props.workmode === 2) setEditableTr( obj => Object.assign( {}, obj, {title: event.target.value} ));
+        if (props.workmode === 3) setNewTr( obj => Object.assign( {}, obj, {title: event.target.value} ));
+
+        if (event.target.value) {
+            setValidTitle(true);
+        } else {
+            setValidTitle(false);
         }
+    }
 
-        if (event.target.value === inputPrice.current.value) {
-            setNewTr( obj => Object.assign({}, obj, {price: +inputPrice.current.value}) );
+    const changeInputPrice = event => {
+
+        if ( 
+            !isFinite(event.target.value) 
+            || (event.target.value.includes(".") && event.target.value.length > event.target.value.indexOf(".") + 3) 
+            ) 
+        return;
+
+        if (props.workmode === 2) setEditableTr( obj => Object.assign( {}, obj, {price: event.target.value} ));
+        if (props.workmode === 3) setNewTr( obj => Object.assign( {}, obj, {price: event.target.value} ));
+
+        if ( event.target.value > 0 ) {
+            setValidPrice(true);
+        } else {
+            setValidPrice(false);
         }
+    }
 
-        if (event.target.value === inputImg.current.value) {
-            setNewTr( obj => Object.assign({}, obj, {img: inputImg.current.value}) );
+    const changeInputImg = event => {
+        if (props.workmode === 2) setEditableTr( obj => Object.assign( {}, obj, {img: event.target.value} ));
+        if (props.workmode === 3) setNewTr( obj => Object.assign( {}, obj, {img: event.target.value} ));
+
+        if ( event.target.value.endsWith('.jpg') && event.target.value.trim().length > 4 ) {
+            setValidImg(true);
+        } else {
+            setValidImg(false);
         }
+    }
 
-        if (event.target.value === inputAmount.current.value) {
-            setNewTr( obj => Object.assign({}, obj, {amount: +inputAmount.current.value}) );
+    const changeInputAmount = event => {
+
+        if ( 
+            !isFinite(event.target.value) 
+            || event.target.value.includes(".") 
+            ) 
+        return;
+
+        if (props.workmode === 2) setEditableTr( obj => Object.assign( {}, obj, {amount: +event.target.value} ));
+        if (props.workmode === 3) setNewTr( obj => Object.assign( {}, obj, {amount: +event.target.value} ));
+
+        if ( event.target.value > 0 ) {
+            setValidAmount(true);
+        } else {
+            setValidAmount(false);
         }
-    };
+    }
 
-    // Функция передачи объекта с изменёнными данными товара родителю:
+    // Функция передачи объекта с данными товара родителю:
     const saveChanges = () => {
-        props.cbSaveProductChanges(editableTr);
-        setEditableTr(props.selectedTr);
+
+        if (props.workmode === 2) {
+            props.cbSaveProductChanges(editableTr);
+            setEditableTr(props.selectedTr);
+        }
+
+        if (props.workmode === 3) {
+            props.cbAddNewProduct(newTr);
+            setNoUpdates(true);
+        }
     }
 
-    // Функция передачи родителю объекта нового товара:
-    const saveChangesNewProduct = () => {
-        props.cbAddNewProduct(newTr);
-        setNoUpdates(true);
-    }
-
-    // Функция отмены (сброса) внесенных изменений в карточке товара и вызова функции родителя (переключение режима отображения карточки товара):
+    // Функция отмены (сброса) внесенных изменений в карточку товара и вызова функции родителя (переключение режима отображения карточки товара):
     const cancelChanges = () => {
         props.cbCancelProductChanges();
         setEditableTr( props.selectedTr ? {...props.selectedTr} : {id: "", title: "", price: "", img: "", amount: ""} );
         setNewTr( {id: props.lastID + 1, title: "", price: "", img: "", amount: ""} );
         setNoUpdates(true);
+
+        setValidTitle(true);
+        setValidPrice(true);
+        setValidImg(true);
+        setValidAmount(true);
     }
+
 
     // Следим за изтенением пропса с выделенным товаром и изменяем значение редактируемого товара:
     useEffect( () => {
@@ -122,7 +156,7 @@ const ProductCard = (props) => {
                     { props.workmode === 1 &&
                         <Fragment key={props.workmode}>
                             <h2 className="product-title">{props.selectedTr.title}</h2>
-                            <p className="product-price">Price: {props.selectedTr.price.toFixed(2)}</p>
+                            <p className="product-price">Price: {(+props.selectedTr.price).toFixed(2)}</p>
                             <p className="product-amount">Amount: {props.selectedTr.amount}</p>
                         </Fragment>
                     }
@@ -139,17 +173,24 @@ const ProductCard = (props) => {
                                 </div>
 
                                 <div className="input">
-                                    <input id="inputID" value={editableTr.id} disabled onChange={changeInputText} ref={inputID}></input>
-                                    <input id="inputTitle" value={editableTr.title} onChange={changeInputText} ref={inputTitle}></input>
-                                    <input id="inputPrice" value={editableTr.price} onChange={changeInputText} ref={inputPrice}></input>
-                                    <input id="inputAmount" value={editableTr.amount} onChange={changeInputText} ref={inputAmount}></input>
-                                    <input id="inputIMG" value={editableTr.img} onChange={changeInputText} ref={inputImg}></input>
+                                    <input id="inputID" value={editableTr.id} disabled></input>
+                                    <input id="inputTitle" value={editableTr.title} onChange={changeInputTitle}></input>
+                                    <input id="inputPrice" value={editableTr.price} onChange={changeInputPrice}></input>
+                                    <input id="inputAmount" value={editableTr.amount} onChange={changeInputAmount}></input>
+                                    <input id="inputIMG" value={editableTr.img} onChange={changeInputImg}></input>
+                                </div>
+
+                                <div className="error">
+                                    <span className={validTitle ? "hidden" : null}>*value must not be empty</span>
+                                    <span className={validPrice ? "hidden" : null}>*value must be a a rational number</span>
+                                    <span className={validAmount ? "hidden" : null}>*value must be a positive integer</span>
+                                    <span className={validImg ? "hidden" : null}>*value must end with &laquo;.jpg&raquo;</span>
                                 </div>
                             </div>
 
                             <div className="btn-wrapper">
                                 {
-                                    noUpdates 
+                                    noUpdates || !validMain 
                                         ? <button className="product-btn" onClick={saveChanges} disabled>save</button>
                                         : <button className="product-btn" onClick={saveChanges}>save</button>
                                 }
@@ -170,19 +211,26 @@ const ProductCard = (props) => {
                                 </div>
 
                                 <div className="input">
-                                    <input id="inputID" value={newTr.id} disabled onChange={changeNewProductInputText} ref={inputID}></input>
-                                    <input id="inputTitle" value={newTr.title} onChange={changeNewProductInputText} ref={inputTitle}></input>
-                                    <input id="inputPrice" value={newTr.price} onChange={changeNewProductInputText} ref={inputPrice}></input>
-                                    <input id="inputAmount" value={newTr.amount} onChange={changeNewProductInputText} ref={inputAmount}></input>
-                                    <input id="inputIMG" value={newTr.img} onChange={changeNewProductInputText} ref={inputImg}></input>
+                                    <input id="inputID" value={newTr.id} disabled></input>
+                                    <input id="inputTitle" value={newTr.title} onChange={changeInputTitle}></input>
+                                    <input id="inputPrice" value={newTr.price} onChange={changeInputPrice}></input>
+                                    <input id="inputAmount" value={newTr.amount} onChange={changeInputAmount}></input>
+                                    <input id="inputIMG" value={newTr.img} onChange={changeInputImg}></input>
+                                </div>
+
+                                <div className="error">
+                                    <span className={validTitle ? "hidden" : null}>*value must not be empty</span>
+                                    <span className={validPrice ? "hidden" : null}>*value must be a a rational number</span>
+                                    <span className={validAmount ? "hidden" : null}>*value must be a positive integer</span>
+                                    <span className={validImg ? "hidden" : null}>*value must end with &laquo;.jpg&raquo;</span>
                                 </div>
                             </div>
 
                             <div className="btn-wrapper">
                                 {
-                                    noUpdates 
-                                        ? <button className="product-btn" onClick={saveChangesNewProduct} disabled>add</button>
-                                        : <button className="product-btn" onClick={saveChangesNewProduct}>add</button>
+                                    noUpdates || !validMain  
+                                        ? <button className="product-btn" onClick={saveChanges} disabled>add</button>
+                                        : <button className="product-btn" onClick={saveChanges}>add</button>
                                 }
                                 <button className="product-btn" onClick={cancelChanges}>cancel</button>
                             </div>

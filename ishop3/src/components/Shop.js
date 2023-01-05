@@ -125,7 +125,11 @@ const Shop = (props) => {
             </table>
 
             <div className="wrapper">
-                <button className="btn" onClick={noEditingNow ? createNewProduct : undefined}>new product</button>
+                {
+                    noEditingNow 
+                        ? <button className="btn" onClick={createNewProduct}>new product</button>
+                        : <button className="btn" onClick={createNewProduct} disabled>new product</button>
+                }
 
                 <ProductCard 
                     workmode = {productCardMode}

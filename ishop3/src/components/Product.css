@@ -21,6 +21,10 @@
     margin-left: 15px;
 }
 
+.product-btn:disabled {
+    cursor: default;
+}
+
 .tr-active {
     background-color: var(--active-color);
 }

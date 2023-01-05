@@ -33,3 +33,8 @@ table img {
 .btn:hover {
     background-color: #2f5f55;
 }
+
+.btn:disabled, .btn:disabled:hover {
+    background-color: #2f5f567c;
+    cursor: default;
+}

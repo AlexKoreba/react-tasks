@@ -9,23 +9,39 @@
     display: none;
 } */
 
+.hidden {
+    visibility: hidden;
+}
+
+
 .product-card > div {
     display: flex;
-    column-gap: 10px;
+    column-gap: 15px;
     margin-bottom: 10px;
 }
 
 .label {
+    flex: 1 1 50px;
     display: flex;
     flex-direction: column;
     row-gap: 9px;
 }
 
 .input {
+    flex: 2 2 300px;
     display: flex;
     flex-direction: column;
     row-gap: 5px;
-    width: 100%;
+}
+
+.error {
+    flex: 1 1 220px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    color: var(--red);
+    font-size: 12px;
+    padding-top: 30px;
 }
 
 .btn-wrapper {
