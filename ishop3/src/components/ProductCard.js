@@ -147,6 +147,45 @@ const ProductCard = (props) => {
     }, [props.workmode]);
 
 
+    // Повторяющийся кусок JSX-кода (форма с полями и кнопками):
+    const workmodeForm  =    
+        <Fragment key={props.workmode}>
+            <div>
+                <div className="label">
+                    <label htmlFor="inputID">ID</label> 
+                    <label htmlFor="inputTitle">Name</label> 
+                    <label htmlFor="inputPrice">Price</label> 
+                    <label htmlFor="inputAmount">Amount</label>
+                    <label htmlFor="inputIMG">URL</label>
+                </div>
+
+                <div className="input">
+                    <input id="inputID" value={props.workmode === 2 ? editableTr.id : newTr.id} disabled></input>
+                    <input id="inputTitle" value={props.workmode === 2 ? editableTr.title : newTr.title} onChange={changeInputTitle}></input>
+                    <input id="inputPrice" value={props.workmode === 2 ? editableTr.price : newTr.price} onChange={changeInputPrice}></input>
+                    <input id="inputAmount" value={props.workmode === 2 ? editableTr.amount : newTr.amount} onChange={changeInputAmount}></input>
+                    <input id="inputIMG" value={props.workmode === 2 ? editableTr.img : newTr.img} onChange={changeInputImg}></input>
+                </div>
+
+                <div className="error">
+                    <span className={validTitle ? "hidden" : null}>*value must not be empty</span>
+                    <span className={validPrice ? "hidden" : null}>*value must be a a rational number</span>
+                    <span className={validAmount ? "hidden" : null}>*value must be a positive integer</span>
+                    <span className={validImg ? "hidden" : null}>*value must end with &laquo;.jpg&raquo;</span>
+                </div>
+            </div>
+
+            <div className="btn-wrapper">
+                {
+                    noUpdates || !validMain 
+                        ? <button className="product-btn" onClick={saveChanges} disabled>save</button>
+                        : <button className="product-btn" onClick={saveChanges}>save</button>
+                }
+                <button className="product-btn" onClick={cancelChanges}>cancel</button>
+            </div>
+        </Fragment>
+  
+     
     return ( 
 
         <Fragment>
@@ -161,81 +200,9 @@ const ProductCard = (props) => {
                         </Fragment>
                     }
 
-                    { props.workmode === 2 &&  
-                        <Fragment key={props.workmode}>
-                            <div>
-                                <div className="label">
-                                    <label htmlFor="inputID">ID</label> 
-                                    <label htmlFor="inputTitle">Name</label> 
-                                    <label htmlFor="inputPrice">Price</label> 
-                                    <label htmlFor="inputAmount">Amount</label>
-                                    <label htmlFor="inputIMG">URL</label>
-                                </div>
+                    { props.workmode === 2 && workmodeForm }
 
-                                <div className="input">
-                                    <input id="inputID" value={editableTr.id} disabled></input>
-                                    <input id="inputTitle" value={editableTr.title} onChange={changeInputTitle}></input>
-                                    <input id="inputPrice" value={editableTr.price} onChange={changeInputPrice}></input>
-                                    <input id="inputAmount" value={editableTr.amount} onChange={changeInputAmount}></input>
-                                    <input id="inputIMG" value={editableTr.img} onChange={changeInputImg}></input>
-                                </div>
-
-                                <div className="error">
-                                    <span className={validTitle ? "hidden" : null}>*value must not be empty</span>
-                                    <span className={validPrice ? "hidden" : null}>*value must be a a rational number</span>
-                                    <span className={validAmount ? "hidden" : null}>*value must be a positive integer</span>
-                                    <span className={validImg ? "hidden" : null}>*value must end with &laquo;.jpg&raquo;</span>
-                                </div>
-                            </div>
-
-                            <div className="btn-wrapper">
-                                {
-                                    noUpdates || !validMain 
-                                        ? <button className="product-btn" onClick={saveChanges} disabled>save</button>
-                                        : <button className="product-btn" onClick={saveChanges}>save</button>
-                                }
-                                <button className="product-btn" onClick={cancelChanges}>cancel</button>
-                            </div>
-                        </Fragment>
-                    }
-
-                    { props.workmode === 3 &&
-                        <Fragment key={props.workmode}>
-                            <div>
-                                <div className="label">
-                                    <label htmlFor="inputID">ID</label> 
-                                    <label htmlFor="inputTitle">Name</label> 
-                                    <label htmlFor="inputPrice">Price</label> 
-                                    <label htmlFor="inputAmount">Amount</label>
-                                    <label htmlFor="inputIMG">URL</label>
-                                </div>
-
-                                <div className="input">
-                                    <input id="inputID" value={newTr.id} disabled></input>
-                                    <input id="inputTitle" value={newTr.title} onChange={changeInputTitle}></input>
-                                    <input id="inputPrice" value={newTr.price} onChange={changeInputPrice}></input>
-                                    <input id="inputAmount" value={newTr.amount} onChange={changeInputAmount}></input>
-                                    <input id="inputIMG" value={newTr.img} onChange={changeInputImg}></input>
-                                </div>
-
-                                <div className="error">
-                                    <span className={validTitle ? "hidden" : null}>*value must not be empty</span>
-                                    <span className={validPrice ? "hidden" : null}>*value must be a a rational number</span>
-                                    <span className={validAmount ? "hidden" : null}>*value must be a positive integer</span>
-                                    <span className={validImg ? "hidden" : null}>*value must end with &laquo;.jpg&raquo;</span>
-                                </div>
-                            </div>
-
-                            <div className="btn-wrapper">
-                                {
-                                    noUpdates || !validMain  
-                                        ? <button className="product-btn" onClick={saveChanges} disabled>add</button>
-                                        : <button className="product-btn" onClick={saveChanges}>add</button>
-                                }
-                                <button className="product-btn" onClick={cancelChanges}>cancel</button>
-                            </div>
-                        </Fragment>
-                    }
+                    { props.workmode === 3 && workmodeForm }
 
                 </div>
                 : null

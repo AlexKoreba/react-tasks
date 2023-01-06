@@ -24,7 +24,7 @@ const Shop = (props) => {
 
     // Функция удаления товара из списка товаров:
     const productsListChanged = trID => {
-        setProductsList( currentValue => [...currentValue].filter( product => product.id !== trID ));
+        setProductsList( currentValue => currentValue.filter( product => product.id !== trID ));
 
         if ( selectedTr && trID === selectedTr.id ) {
             setSelectedTr(null);
