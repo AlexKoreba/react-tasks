@@ -7,23 +7,20 @@ const BR2JSX = (props) => {
 
     const [text, setText] = useState(props.text);
     const [arrText, setArrText] = useState( [props.text.split(" ")] );
-    const [arrJSX, setArrJSX] = useState( [] );
     const [arrMain, setArrMain] = useState( [] );
 
+    
     useEffect( () => {
+
         if ( props.text.includes("<br>") || props.text.includes("<br/>") ) {
             setText( currentText => currentText.split("<br>").join("<br />") );
             setText( currentText => currentText.split("<br/>").join("<br />") );
         }
-    }, [props.text])
 
-    useEffect( () => {
         setArrText( text.split("<br />") );
-    }, [text])
 
-    useEffect( () => {
-        setArrJSX( Array(arrText.length - 1).fill(<br />) )
-    }, [arrText])
+    }, [props.text, text])
+
 
     useEffect( () => {
 
@@ -38,13 +35,13 @@ const BR2JSX = (props) => {
                         break
                     }
 
-                    result = result.concat( arrText[i] ).concat( arrJSX[i] );
+                    result = result.concat( arrText[i] ).concat( <br key={i} /> );
                 }
 
                 return result;
             })
 
-    }, [arrText, arrJSX])
+    }, [arrText])
 
  
 
