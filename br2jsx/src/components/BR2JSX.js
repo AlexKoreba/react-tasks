@@ -5,45 +5,36 @@ import "./BR2JSX.css";
 
 const BR2JSX = (props) => {
 
-    const [text, setText] = useState(props.text);
-    const [arrText, setArrText] = useState( [props.text.split(" ")] );
+    const [arrText, setArrText] = useState( [] );
     const [arrMain, setArrMain] = useState( [] );
 
-    
     useEffect( () => {
 
-        if ( props.text.includes("<br>") || props.text.includes("<br/>") ) {
-            setText( currentText => currentText.split("<br>").join("<br />") );
-            setText( currentText => currentText.split("<br/>").join("<br />") );
+        const arrTextChanged = props.text.replace( /<br(.*?)>/gi, "<br />" ).split("<br />");
+
+        if ( JSON.stringify(arrText) !== JSON.stringify(arrTextChanged)) {
+            setArrText(arrTextChanged);
         }
+        
+        setArrMain( () => {
 
-        setArrText( text.split("<br />") );
+            let result = [];
 
-    }, [props.text, text])
+            for (let i = 0; i < arrText.length; i++) {
 
-
-    useEffect( () => {
-
-            setArrMain( () => {
-
-                let result = [];
-
-                for (let i = 0; i < arrText.length; i++) {
-
-                    if (i === arrText.length - 1) {
-                        result = result.concat( arrText[i] );
-                        break
-                    }
-
-                    result = result.concat( arrText[i] ).concat( <br key={i} /> );
+                if (i === arrText.length - 1) {
+                    result.push( arrText[i] );
+                    break;
                 }
 
-                return result;
-            })
+                result.push( arrText[i], <br key={i} /> );
+            }
 
-    }, [arrText])
+            return result;
+        })
 
- 
+    }, [props.text, arrText])
+
 
     return ( 
         <div className = "container">{arrMain}</div>
