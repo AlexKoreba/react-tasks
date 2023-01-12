@@ -8,6 +8,7 @@ const BR2JSX = (props) => {
     const [arrText, setArrText] = useState( [] );
     const [arrMain, setArrMain] = useState( [] );
 
+    
     useEffect( () => {
 
         const arrTextChanged = props.text.replace( /<br(.*?)>/gi, "<br />" ).split("<br />");
