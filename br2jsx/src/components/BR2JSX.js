@@ -5,36 +5,31 @@ import "./BR2JSX.css";
 
 const BR2JSX = (props) => {
 
-    const [arrText, setArrText] = useState( [] );
     const [arrMain, setArrMain] = useState( [] );
 
     
     useEffect( () => {
 
-        const arrTextChanged = props.text.replace( /<br(.*?)>/gi, "<br />" ).split("<br />");
+        const arrTextChanged = props.text.split(/<br\s?\/?>/gi);
 
-        if ( JSON.stringify(arrText) !== JSON.stringify(arrTextChanged)) {
-            setArrText(arrTextChanged);
-        }
-        
         setArrMain( () => {
 
             let result = [];
 
-            for (let i = 0; i < arrText.length; i++) {
+            for (let i = 0; i < arrTextChanged.length; i++) {
 
-                if (i === arrText.length - 1) {
-                    result.push( arrText[i] );
+                if (i === arrTextChanged.length - 1) {
+                    result.push( arrTextChanged[i] );
                     break;
                 }
 
-                result.push( arrText[i], <br key={i} /> );
+                result.push( arrTextChanged[i], <br key={i} /> );
             }
 
             return result;
         })
 
-    }, [props.text, arrText])
+    }, [props.text])
 
 
     return ( 
