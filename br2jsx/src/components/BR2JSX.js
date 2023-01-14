@@ -3,37 +3,34 @@ import PropTypes from 'prop-types';
 
 import "./BR2JSX.css";
 
-const BR2JSX = (props) => {
+const BR2JSX = props => {
 
     const [arrMain, setArrMain] = useState( [] );
 
     
     useEffect( () => {
 
-        const arrTextChanged = props.text.split(/<br\s?\/?>/gi);
+        const arrTextChanged = props.text.split(/<br\s*\/?>/gi);
 
-        setArrMain( () => {
+        const result = [];
 
-            let result = [];
+        for (let i = 0; i < arrTextChanged.length; i++) {
 
-            for (let i = 0; i < arrTextChanged.length; i++) {
+            if (i) 
+                result.push( <br key={i} /> ); /* Добавляем <br /> перед каждым элементом, кроме первого */
 
-                if (i === arrTextChanged.length - 1) {
-                    result.push( arrTextChanged[i] );
-                    break;
-                }
+            result.push( arrTextChanged[i] );
+        }
 
-                result.push( arrTextChanged[i], <br key={i} /> );
-            }
-
-            return result;
-        })
+        setArrMain(result);
 
     }, [props.text])
 
 
     return ( 
-        <div className = "container">{arrMain}</div>
+        <div className = "container">
+            {arrMain}
+        </div>
     );
 }
  
