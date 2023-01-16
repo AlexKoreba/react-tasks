@@ -1,4 +1,4 @@
-export const withColorFrames = colors => Comp => props => {
+export const withColorFrames = colors => Comp => function WithColorFrames(props) {
 
     let component = <Comp {...props} />;
 
@@ -10,5 +10,5 @@ export const withColorFrames = colors => Comp => props => {
                             </div>
         });
 
-    return <>{component}</>;
+    return component;
 };
