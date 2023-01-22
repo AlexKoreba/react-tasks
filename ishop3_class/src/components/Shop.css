@@ -1,0 +1,40 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 40px auto 10px;
+}
+
+table th {
+    height: 100px;
+    color: var(--header-color);
+    text-transform: uppercase;
+}
+
+table img {
+    width: 130px;
+}
+
+.wrapper {
+    text-align: left;
+    padding: 0 20px;
+}
+
+.btn {
+    width: 120px;
+    height: 40px;
+    color: #FFFFFF;
+    background-color: var(--green);
+    border: none;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2f5f55;
+}
+
+.btn:disabled, .btn:disabled:hover {
+    background-color: #2f5f567c;
+    cursor: default;
+}

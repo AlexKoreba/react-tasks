@@ -1,0 +1,30 @@
+.product-title {
+    color: var(--title-color);
+}
+
+.product-price::after {
+    content: " BYN";
+}
+
+.product-amount::after {
+    content: " шт."; 
+}
+
+.product-btn {
+    width: 80px;
+    height: 40px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.product-btn:not(.product-btn:first-child) {
+    margin-left: 15px;
+}
+
+.product-btn:disabled {
+    cursor: default;
+}
+
+.tr-active {
+    background-color: var(--active-color);
+}
