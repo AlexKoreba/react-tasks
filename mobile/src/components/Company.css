@@ -1,0 +1,15 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table th {
+    height: 50px;
+    color: var(--header-color);
+    text-transform: uppercase;
+}
+
+table td {
+    height: 80px;
+}

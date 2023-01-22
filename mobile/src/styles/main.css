@@ -1,0 +1,26 @@
+:root {
+    --black: #252525;
+    --red: #EB6254;
+    --green: #3c7a6e;
+    --gray: lightgray;
+
+    --main-color: var(--black);
+    --header-color: var(--green);
+    --title-color: var(--red);
+    --active-color: var(--gray);
+
+}
+
+body {
+    font-family: sans-serif;
+    color: var(--main-color);
+    font-weight: 700;
+    margin: 0;
+}
+
+.btn {
+    height: 40px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 20px 10px 20px 0;
+}

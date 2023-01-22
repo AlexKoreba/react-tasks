@@ -1,0 +1,19 @@
+.client-balance::after {
+    content: " BYN";
+}
+
+.client-active {
+    color: #FFFFFF;
+    background-color: rgb(57, 117, 57); 
+}
+
+.client-blocked {
+    color: #FFFFFF;
+    background-color: rgb(219, 73, 73); 
+}
+
+.client-btn {
+    height: 40px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
