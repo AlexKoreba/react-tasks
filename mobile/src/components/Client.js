@@ -22,10 +22,8 @@ class Client extends React.PureComponent {
     componentDidUpdate = (oldProps, oldState) => {
         console.log(`Client id = ${this.state.info.id} componentDidUpdate`);
 
-        if ( this.props.info.balance !== this.state.info.balance)
-            this.setState({
-                info:this.props.info
-            })
+        if  ( this.props.info.balance !== this.state.info.balance || this.props.info.fam !== this.state.info.fam ) 
+            this.setState({info:this.props.info})
     }
 
 
@@ -56,10 +54,10 @@ class Client extends React.PureComponent {
                     }
                 </td>
                 <td>
-                    <button className="client-btn" onClick={ () => this.props.cbSetBalance(this.state.info.id, 100) }>Редактировать</button>              
+                    <button className="client-btn" onClick={ () => this.props.cbSetBalance(this.state.info.id, this.state.info.balance + 100) }>Редактировать</button>              
                 </td>
                 <td>
-                    <button className="client-btn">Удалить</button>              
+                    <button className="client-btn" onClick={ () => this.props.cbDeleteClient(this.state.info.id) }>Удалить</button>              
                 </td>
             </tr>
         )
