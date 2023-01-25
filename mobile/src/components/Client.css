@@ -13,7 +13,13 @@
 }
 
 .client-btn {
+    width: 130px;
     height: 40px;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+input {
+    width: 80px;
+    height: 30px;
 }

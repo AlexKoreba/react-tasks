@@ -1,4 +1,3 @@
-// import Shop from "./components/Shop";
 import Company from "./components/Company";
 
 import clients from './helpers/clientsList.json';
@@ -9,8 +8,7 @@ function App() {
   return (
     <div className="App">
 
-        <Company clients = {clients} />
-      {/* <Shop shopName = "BOSCH" /> */}
+      <Company clients = {clients} />
 
     </div>
   );
