@@ -1,0 +1,25 @@
+@import './reset.css';
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+form {
+    width: 300px;
+    margin: 30px auto;
+}
+
+.text {
+    width: 200px;
+    margin: 0 10px;
+}
+.content {
+    overflow: auto;
+    height: 90px;
+    background-color: rgba(252, 244, 244, 0.979);
+    line-height: 1.5;
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 20px;
+}
