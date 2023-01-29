@@ -4,15 +4,11 @@ import { filterEvents } from "./../helpers/events";
 
 const Controls = ( {checkboxActive, inputText} ) => {
 
-    const toggleCheckbox = () => filterEvents.emit("ESortModeSwitched");
-    const getEnteredText = event => filterEvents.emit("ETextChanged", event.target.value);
-    const resetParams = () => filterEvents.emit("EControlsCleared");
-
     return ( 
         <>
-            <input className="checkbox" type="checkbox" onChange={toggleCheckbox} checked={checkboxActive}></input>
-            <input className="text" type="text" onChange={getEnteredText} value={inputText}></input>
-            <input className="reset" type="button" value="reset" onClick={resetParams}></input>
+            <input className="checkbox" type="checkbox" onChange={ () => filterEvents.emit("ESortModeSwitched") } checked={checkboxActive}></input>
+            <input className="text" type="text" onChange={ event => filterEvents.emit("ETextChanged", event.target.value) } value={inputText}></input>
+            <input className="reset" type="button" value="reset" onClick={ () => filterEvents.emit("EControlsCleared") }></input>
         </>
     );
 }
