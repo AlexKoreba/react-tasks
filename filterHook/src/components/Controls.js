@@ -1,28 +1,12 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
+
 import { filterEvents } from "./../helpers/events";
 
-const Controls = () => {
+const Controls = ( {checkboxActive, inputText} ) => {
 
-    const [checkboxActive, setCheckboxActive] = useState(false);
-    const [inputText, setInputText] = useState("");
-    
-
-    const toggleCheckbox = () => {
-        filterEvents.emit("ESortModeSwitched", !checkboxActive);
-        setCheckboxActive( currentValue => currentValue ? false : true);
-    }
-
-    const getEnteredText = event => {
-        filterEvents.emit("ETextChanged", event.target.value);
-        setInputText(event.target.value);
-    }
-
-    const resetParams = () => {
-        filterEvents.emit("ESortModeSwitched", false);
-        filterEvents.emit("EControlsCleared");
-        setCheckboxActive(false);
-        setInputText("");
-    }
+    const toggleCheckbox = () => filterEvents.emit("ESortModeSwitched");
+    const getEnteredText = event => filterEvents.emit("ETextChanged", event.target.value);
+    const resetParams = () => filterEvents.emit("EControlsCleared");
 
     return ( 
         <>
@@ -32,5 +16,10 @@ const Controls = () => {
         </>
     );
 }
+
+Controls.propTypes = {
+    checkboxActive: PropTypes.bool.isRequired,
+    inputText: PropTypes.string.isRequired
+};
  
 export default Controls;

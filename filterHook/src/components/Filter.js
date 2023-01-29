@@ -16,10 +16,10 @@ const Filter = ( {arrList} ) => {
 
     useEffect( () => {
 
-        const toggleSortMode = value => setSortMode(value);
+        const toggleSortMode = () => setSortMode(currentValue => currentValue ? false : true);
         const textChanged = newText => setEnteredText(newText);
         const reset = () => {
-            setWordsList([...arrList]);
+            setSortMode(false);
             setEnteredText("");
         };
 
@@ -32,7 +32,7 @@ const Filter = ( {arrList} ) => {
             filterEvents.removeListener("ETextChanged", textChanged);
             filterEvents.removeListener("EControlsCleared", reset);
         }
-    }, [arrList]);
+    }, []);
 
 
     useEffect( () => {
@@ -50,8 +50,8 @@ const Filter = ( {arrList} ) => {
 
     return ( 
         <form>
-            <Controls />
-            <List wordsList = {wordsList} />
+            <Controls checkboxActive={sortMode} inputText={enteredText}  />
+            <List wordsList={wordsList} />
         </form>
     );
 }
