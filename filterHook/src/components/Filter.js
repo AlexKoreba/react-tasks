@@ -15,7 +15,6 @@ const Filter = ( {arrList} ) => {
 
 
     useEffect( () => {
-
         const toggleSortMode = () => setSortMode(currentValue => currentValue ? false : true);
         const textChanged = newText => setEnteredText(newText);
         const reset = () => {
